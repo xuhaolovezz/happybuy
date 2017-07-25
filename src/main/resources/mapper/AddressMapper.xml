@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IAddressDao">
+    <!--实体类Province对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Address" id="Address">
+        <id property="id" column="address_id" jdbcType="VARCHAR" />
+        <result property="name" column="address_name" jdbcType="VARCHAR" />
+        <result property="detailedAddress" column="detailed_address" jdbcType="VARCHAR" />
+        <result property="phone" column="address_phone" jdbcType="VARCHAR" />
+        <result property="defaultAddress" column="default_address" jdbcType="INTEGER" />
+        <!-- 收货地址所属的用户-->
+        <association property="user" resultMap="com.happybuy.dao.IUserDao.User" />
+        <!--收货地址所属的省份-->
+        <association property="province" resultMap="com.happybuy.dao.IProvinceDao.Province" />
+        <!--收货地址所属的城市-->
+        <association property="city" resultMap="com.happybuy.dao.ICityDao.City" />
+    </resultMap>
+
+    <!--查询某个用户的所有收货地址-->
+    <select id="queryAddressByUser" parameterType="String" resultMap="Address">
+        SELECT c.address_id, c.address_name, c.detailed_address, c.address_phone, c.default_address,
+         c.pro_id, c.city_id, a.pro_name, b.city_name
+        FROM address c
+        LEFT JOIN province a
+        on c.pro_id = a.pro_id
+        LEFT JOIN city b
+        on c.city_id = b.city_id
+        WHERE c.user_id = #{_parameter}
+        ORDER BY c.default_address DESC
+    </select>
+
+    <!--查询一条收货地址-->
+    <select id="queryOne" parameterType="String" resultMap="Address">
+        SELECT c.address_id, c.address_name, c.detailed_address, c.address_phone, c.default_address,
+         c.pro_id, c.city_id, a.pro_name, b.city_name
+        FROM address c
+        LEFT JOIN province a
+        on c.pro_id = a.pro_id
+        LEFT JOIN city b
+        on c.city_id = b.city_id
+        WHERE c.address_id = #{_parameter}
+    </select>
+
+    <!--给某个用户添加一个收货地址-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.Address">
+        INSERT INTO
+        address(address_id, address_phone, address_name, detailed_address, default_address,
+                  user_id, pro_id, city_id)
+        VALUES (#{id}, #{phone}, #{name}, #{detailedAddress}, #{defaultAddress},#{user.id},
+                #{province.id}, #{city.id})
+    </insert>
+
+    <!--将某个用户的地址设置为默认收货地址-->
+    <update id="setNoDefault" parameterType="String">
+        UPDATE address
+        SET default_address = 0
+        WHERE user_id = #{_parameter} AND default_address = 1
+    </update>
+    <update id="setDefault" parameterType="String">
+        UPDATE address
+        SET default_address = 1
+        WHERE address_id = #{_paramter}
+    </update>
+
+    <!--删除某个收货地址-->
+    <delete id="deleteOne" parameterType="String">
+        DELETE FROM address
+        WHERE address_id = #{_parameter}
+    </delete>
+
+    <!--修改收货地址-->
+    <insert id="updateAddress" parameterType="com.happybuy.domain.Address">
+        UPDATE address
+        SET address_phone = #{phone}, address_name = #{name}, detailed_address = #{detailedAddress},
+        pro_id = #{province.id}, city_id = #{city.id}
+        WHERE address_id = #{id}
+    </insert>
+
+</mapper>

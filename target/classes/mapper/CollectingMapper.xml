@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.ICollectingDao">
+    <!--实体类Collecting对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Collecting" id="Collecting">
+        <id property="id" column="coll_id" jdbcType="VARCHAR" />
+        <!--收藏所属的用户-->
+        <association property="user" column="user_id" resultMap="com.happybuy.dao.IUserDao.User" />
+        <!--收藏的商品-->
+        <association property="commodity" resultMap="com.happybuy.dao.ICommodityDao.Commodity" />
+    </resultMap>
+
+    <!--查询某个用户的所有收藏-->
+    <select id="queryCollectingByPage" parameterType="map" resultMap="Collecting">
+        SELECT a.coll_id, a.user_id, a.comm_id, c.co_name, c.co_description, c.currentPrice, c.picture1, d.kind_name, e.sk_name
+        FROM collecting a
+        LEFT JOIN user b
+        on a.user_id = b.user_id
+        LEFT JOIN commodity c
+        on a.comm_id = c.comm_id
+        LEFT JOIN kind d
+        on c.kind_id = d.kind_id
+        LEFT JOIN smallkind e
+        on c.sk_id = e.sk_id
+        WHERE a.user_id = #{userId}
+    </select>
+
+    <!--计算某个用户的收藏商品总数-->
+    <select id="countAllByUser" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM collecting
+        WHERE user_id = #{_parameter}
+    </select>
+
+    <!--根据用户id和商品id查询某个收藏-->
+    <select id="queryOne" parameterType="map" resultMap="Collecting">
+        SELECT coll_id, user_id, comm_id
+        FROM collecting
+        WHERE user_id = #{userId} AND comm_id = #{commodityId}
+    </select>
+
+    <!--为某个用户添加一个收藏-->
+    <insert id="insertOne" parameterType="map">
+        INSERT INTO collecting(coll_id, user_id, comm_id)
+        VALUES (#{collectingId}, #{userId}, #{commodityId})
+    </insert>
+
+    <!--删除一条收藏-->
+    <delete id="deleteOne" parameterType="String">
+        DELETE FROM collecting
+        WHERE coll_id = #{_parameter}
+    </delete>
+
+    <!--查询收藏了某个商品的所有用户-->
+    <select id="queryBatchByCommodity" parameterType="String" resultMap="Collecting">
+        SELECT a.user_id, a.coll_id, b.email, b.username
+        FROM
+        collecting a
+        LEFT JOIN user b
+        on a.user_id = b.user_id
+        WHERE comm_id = #{_parameter}
+    </select>
+
+</mapper>

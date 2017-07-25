@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IUserDao">
+    <!--实体类Command_Content对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.User" id="User">
+        <id property="id" column="user_id" jdbcType="VARCHAR" />
+        <result property="username" column="username" jdbcType="VARCHAR" />
+        <result property="password" column="u_password" jdbcType="VARCHAR" />
+        <result property="uname" column="uname" jdbcType="VARCHAR" />
+        <result property="email" column="email" jdbcType="VARCHAR" />
+        <result property="age" column="age" jdbcType="INTEGER" />
+        <result property="gender" column="gender" jdbcType="INTEGER" />
+        <result property="birthday" column="birthday" jdbcType="DATE" />
+        <result property="phone" column="phone" jdbcType="VARCHAR" />
+        <result property="state" column="ustate" jdbcType="INTEGER" />
+        <result property="regCode" column="regCode" jdbcType="VARCHAR" />
+        <result property="salt" column="salt" jdbcType="VARCHAR" />
+        <result property="code" column="ucode" jdbcType="VARCHAR" />
+        <result property="codeTime" column="codeTime" jdbcType="BIGINT" />
+        <result property="root" column="root" jdbcType="INTEGER" />
+    </resultMap>
+
+    <!--插入一条记录-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.User" >
+       <!-- <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual
+        </selectKey>-->
+        INSERT INTO
+        user (user_id,username,u_password,email,ustate,regCode,salt,root)
+        VALUES( #{id} , #{username}, #{password}, #{email}, #{state}, #{regCode}, #{salt}, #{root})
+    </insert>
+
+    <!--查询一条用户记录-->
+    <select id="selectOneUser" parameterType="com.happybuy.domain.User" resultMap="User">
+        SELECT user_id,username,u_password,uname,email,age,gender,birthday,phone,ustate,regCode,salt,ucode,codeTime,root
+        FROM user u
+        <where>
+            <if test="id != null">
+                u.user_id = #{id}
+            </if>
+        </where>
+        <where>
+            <if test="username!=null ">
+                AND u.username = #{username}
+            </if>
+        </where>
+    </select>
+
+    <!--激活用户-->
+    <update id="activeUser" parameterType="String">
+        UPDATE user u
+        SET u.ustate=1
+        WHERE u.user_id = #{_parameter}
+    </update>
+
+    <!--查询用户邮箱以及邮箱验证码-->
+    <select id="selectEmailAndCode" parameterType="String" resultMap="User">
+        SELECT user_id, username, email, ucode, codeTime
+        FROM user u
+        WHERE u.user_id = #{_parameter}
+    </select>
+
+    <!--保存用户的邮箱验证码-->
+    <update id="updateCode" parameterType="com.happybuy.domain.User">
+        UPDATE user u
+        SET u.ucode = #{code}, u.codeTime = #{codeTime}
+        WHERE u.user_id = #{id}
+    </update>
+
+    <!--更新用户密码-->
+    <update id="updatePassword" parameterType="com.happybuy.domain.User">
+        UPDATE user u
+        SET u.u_password = #{password}, u.salt = #{salt}
+        WHERE u.user_id = #{id}
+    </update>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="com.happybuy.domain.User">
+        UPDATE user u
+        SET u.uname = #{uname}, u.birthday = #{birthday}, u.phone=#{phone}, u.gender=#{gender}
+        WHERE u.user_id = #{id}
+    </update>
+
+</mapper>

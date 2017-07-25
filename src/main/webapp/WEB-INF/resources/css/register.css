@@ -1,0 +1,83 @@
+/*页面中部CSS样式*/
+.container a{
+	text-decoration: none;
+	color: #000000;
+}
+a:visited{
+	text-decoration: none;
+}
+.container{
+	width: 1100px;
+	margin: 0 auto;
+	margin-top: 50px;
+	height: 500px;
+}
+
+.c-left{
+	display: inline-block;
+	float: left;
+	margin-left: 120px;
+}
+.c-right{
+	display: inline-block;
+	float: left;
+	margin: 0px 30px;
+	border: 1px solid #CCCCCC;
+	border-radius: 5px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	line-height: 30px;
+	width: 280px;
+	height: 400px;
+	padding: 0 20px 20px 20px;
+}
+#i1{
+	position: absolute;
+	float: left;
+	top: 50px;
+}
+#c1{
+	font-weight: bold;
+	font-size: 20px;
+	color: #FF0036;
+}
+#s1{
+	float: right;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.c4{
+	width: 250px;
+	height: 42px;
+	background-color: #FF0036;
+	line-height: 43px;
+	color: white;
+	border-radius: 3px;
+	border: none;
+}
+.c4:hover{
+	background-color: #e80030;
+}
+.t1{
+	width: 250px;
+	height: 30px;
+	border: 1px solid #C4C4C4;
+}
+#service{
+	color: #FF0036;
+}
+#toLogin{
+	color: #ff202d;
+}
+label.error{
+	color: #ff202d;
+}
+/*页面底部CSS样式*/
+.footer{
+	width: 1100px;
+	margin: 0 auto;
+	font-family: "微软雅黑";
+	color: #ccc;
+	text-align: center;
+}

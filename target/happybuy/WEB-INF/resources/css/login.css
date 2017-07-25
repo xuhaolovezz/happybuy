@@ -1,0 +1,92 @@
+/*页面中部CSS样式*/
+.container a{
+	text-decoration: none;
+	color: #000000;
+}
+.container{
+	width: 1100px;
+	margin: 0 auto;
+	margin-top: 50px;
+	height: 500px;
+}
+
+.c-left{
+	display: inline-block;
+	float: left;
+	margin-left: 120px;
+	height: 420px;
+	width: 500px;
+}
+.c-right{
+	display: inline-block;
+	float: left;
+	margin: 50px 30px;
+	border: 1px solid #CCCCCC;
+	border-radius: 5px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	line-height: 30px;
+	width: 280px;
+	padding: 0 20px 20px 20px;
+}
+.form-control{
+	width: 115%!important;
+}
+label.error{
+	position: absolute;
+	top: 100%;
+	left: 0%;
+}
+#i1{
+	padding: 30px;
+	margin-top: 50px;
+}
+#i2{
+	position: absolute;
+	float: left;
+	top: 50px;
+	left: 250px;
+}
+.title{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.p-login{
+	line-height: 30px;
+}
+#c1{
+	font-weight: bold;
+	font-size: 20px;
+	color: #FF0036;
+
+}
+
+.c4{
+	width: 250px;
+	height: 42px;
+	background-color: #FF0036;
+	line-height: 43px;
+	color: white;
+	border-radius: 3px;
+	border: none;
+}
+.c4:hover{
+	background-color: #e80030;
+}
+
+.t1{
+	width: 250px;
+	height: 30px;
+	border: 1px solid #C4C4C4;
+}
+label.error{
+	color: #ff202d;
+}
+/*页面底部CSS样式*/
+.footer{
+	width: 1100px;
+	margin: 0 auto;
+	font-family: "微软雅黑";
+	color: #ccc;
+	text-align: center;
+}

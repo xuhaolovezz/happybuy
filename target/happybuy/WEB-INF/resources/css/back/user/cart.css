@@ -1,0 +1,408 @@
+/*页面头部CSS样式 */
+body{
+	margin: 0;
+	padding: 0;
+}
+.header a{
+	text-decoration: none;
+	font-size: 13px;
+	color: #666;
+	font-family: "微软雅黑";
+}
+.header{
+	width: 100%;
+	/*margin-bottom: 50px;*/
+}
+.header-top{
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #f2f2f2;
+	height: 29px;
+	line-height: 29px;
+	position: relative;
+}
+.header-top-l{
+	display: inline-block;
+	float: left;
+	margin-left: 100px;
+}
+.header-top-r{
+	display: inline-block;
+	float: right;
+	margin-right: 100px;
+}
+.header-middle{
+	margin: 10px auto;
+	height: 150px;
+	width: 1000px;
+}
+.header-middle-logo{
+	display: inline-block;
+	float: left;
+}
+.header-middle-right{
+	display: inline-block;
+	float: right;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	margin-top: 40px;
+}
+.step{
+	background: url(/happybuy/resources/css/img/cart/cart-step-ff.png) no-repeat;
+	height: 42px;
+	width: 450px;
+}
+.current{
+	display: inline-block;
+	float: left;
+	margin:10px 23px;
+}
+.header-middle-se{
+	clear: both;
+	float: right;
+	width: 450px;
+}
+.search{
+	width: 350px;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.btn-search{
+	margin-left: -4px;
+	margin-bottom: 2px !important;
+}
+
+/*中部CSS样式*/
+.container a{
+	text-decoration: none;
+	color: #000000;
+	font-family: "微软雅黑";
+}
+.container{
+	width: 1000px;
+	margin: 0 auto;
+	/*margin-top: 50px;*/
+	font-family: "微软雅黑";
+}
+.c-title{
+	font-size: 25px;
+	font-weight: bold;
+	margin: 20px 70px;
+}
+.title span{
+	font-size: 16px;
+}
+.title{
+	height: 40px;
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	background-color: #F2F2F2;
+}
+.c-menu{
+	line-height: 30px;
+	border: 1px solid #e9e9e9;
+	width: 1005px;
+	margin: 0 auto;
+}
+#title1{
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+}
+#title2{
+	display: inline-block;
+	float: left;
+	margin:0px 190px;
+}
+#title3{
+	display: inline-block;
+	float: left;	
+}
+.inline{
+	display: inline-block;
+	float: left;
+}
+.p-no-commodity{
+	margin-bottom: 50px;
+	text-align: center;
+}
+.p-no-commodity span{
+	font-size: 20px;
+}
+.c-list a{
+	display: block;
+}
+.c-list a:hover{
+	color: #ff683e;
+	text-decoration: none;
+}
+.goods-img{
+	border: 1px solid #eee;
+}
+.list-goods{
+	margin-left: 20px;
+	margin-top: 10px;
+}
+.goods-text{
+	margin-left: 50px;
+	width: 300px;
+}
+.list-price{
+	margin: 20px 0 0 10px;
+	width: 120px;
+	text-align: center;
+}
+.list-quantity{
+	 margin-left: 40px;
+	 margin-top: 20px;
+	 position: relative;
+	 overflow: hidden;
+	 height: 26px;
+	 width: 80px;;
+ }
+.list span{
+	width: 100px;
+}
+.list-quantity a{
+	display: inline;
+	border: 1px solid #cacbcb;
+	height: 18px;
+	line-height: 18px;
+	padding: 1px 3px;
+	padding-bottom: 0px;
+	width: 16px;
+	text-align: center;
+	color: #666;
+	margin: 0;
+	background: #fff;
+}
+.list-quantity a:visited{
+	text-decoration: none;
+}
+.list-quantity em{
+	width: 60px;
+	font-style: normal;
+}
+.left-a{
+	margin-right: 0px;
+}
+.right-a{
+	margin-left: 41px!important;
+}
+.commodity-number{
+	position: absolute;
+	left: 17px;
+	top: 3px;
+	border: 1px solid #cacbcb;
+	border-right:0px ;
+	width: 42px;
+	height: 22px;
+	line-height: 18px;
+	text-align: center;
+	padding: 1px;
+	margin: 0;
+	font-size: 12px;
+	font-family: verdana;
+	color: #333;
+	-webkit-appearance: none;
+}
+.list-sum{
+	margin-left: 10px;
+	margin-top: 20px;
+	width: 150px;
+	text-align: center
+}
+.list-ops{
+	margin-left: 20px;
+	margin-top: 15px;
+}
+.list{
+	height: 110px;
+	border: 1px solid #e6e6e6;
+	margin-bottom: 20px;
+}
+.list-checkbox{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.list a{
+	font-size: 14px;
+}
+.a-width a{
+	width: 60px;
+}
+.c-foot{
+	height:60px ;
+	background-color: #F2F2F2;
+	line-height: 60px;
+}
+.c-foot a:hover{
+	text-decoration: none;
+	color: #ff683e;
+}
+.c-foot label{
+	color: #FF0036;
+}
+.foot-del{
+	margin-left: 20px;
+}
+.foot-collect{
+	margin-left: 40px;
+}
+.foot-checkbox{
+	margin-left: 20px;
+}
+.foot-sum{
+	float: right;
+}
+.foot-chose{
+	float: right;
+	width: 160px;
+	line-height: 18px;
+	margin-top: 15px;
+	margin-right: 10px;
+}
+.foot-economize{
+	float: right;
+	width: 200px;
+	line-height: 18px;
+	margin-top: 15px;
+}
+.foot-economize span{
+	font-size: 16px;
+}
+.foot-economize em{
+	font-size: 12px;
+	font-family: "微软雅黑";
+	font-style: normal;
+}
+.foot-submit{
+	float: right;
+	padding: 0 10px;
+	cursor: pointer;
+	/* margin-left: 156px; */
+	height: 60px;
+	width: 100px;
+	background-color: #fd0034;
+}
+.foot-submit:hover{
+	background-color: #ef0033;
+}
+.foot-submit a{
+	margin-left: 12px;
+	font-size: 18px;
+	color: #ffffff;
+}
+.foot-submit a:hover{
+	text-decoration: none;
+	color: #ffffff;
+}
+/*底部CSS样式 */
+.footer a{
+	text-decoration: none;
+	color: #000000;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+.footer{
+	width: 1100px;
+	margin:auto;
+	margin-top: 15px;
+	line-height: 25px;
+	text-align: center;
+	font-size: 12px;
+}
+.footer-w{
+	color: #515151;
+}
+.block{
+	height: 1150px;
+}
+.footer-service{
+	height: 100px;
+}
+.service{
+	margin-left: 20px;
+	height: 80px;
+	width: 250px;
+	display: block;
+	float: left;
+}
+.service1{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+}
+.service2{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+	background-position: 0 -43px;
+}
+.service3{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+	background-position: 0 -86px;
+}
+.service4{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+	background-position: 0 -129px;
+}
+.service-t{
+	font-weight:bold;
+	color: #444;
+	line-height: 42px;
+	font-size: 18px;
+	float: left;
+	display: block;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+.footer-help{
+	height: 170px;
+}
+.footer-help a{
+	font-size: 12px;
+	font-family: "微软雅黑";
+}
+.strong{
+	font-weight: bold;
+	font-family: "微软雅黑";
+	font-size: 16px;
+	margin: 5px;
+}
+ul li{
+	list-style: none;
+}
+.help{
+	display: inline-block;
+	float: left;
+	margin-right: 70px;
+}

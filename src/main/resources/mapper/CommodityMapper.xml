@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.ICommodityDao" >
+    <!--实体类Commodity对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Commodity" id="Commodity">
+        <id property="id" column="comm_id" jdbcType="VARCHAR" />
+        <result property="name" column="co_name" jdbcType="VARCHAR" />
+        <result property="description" column="co_description" jdbcType="VARCHAR" />
+        <result property="stock" column="stock" jdbcType="VARCHAR" />
+        <result property="totalBuy" column="totalBuy" jdbcType="INTEGER" />
+        <result property="state" column="state" jdbcType="VARCHAR" />
+        <result property="originalPrice" column="originalPrice" jdbcType="DECIMAL" />
+        <result property="currentPrice" column="currentPrice" jdbcType="DECIMAL" />
+        <result property="picture1" column="picture1" jdbcType="VARCHAR" />
+        <result property="picture2" column="picture2" jdbcType="VARCHAR" />
+        <result property="picture3" column="picture3" jdbcType="VARCHAR" />
+        <result property="picture4" column="picture4" jdbcType="VARCHAR" />
+        <result property="descPicture1" column="desc_picture1" jdbcType="VARCHAR" />
+        <result property="descPicture2" column="desc_picture2" jdbcType="VARCHAR" />
+        <result property="descPicture3" column="desc_picture3" jdbcType="VARCHAR" />
+        <result property="descPicture4" column="desc_picture4" jdbcType="VARCHAR" />
+        <!-- 一对一，商品的大种类-->
+        <association property="kind" resultMap="com.happybuy.dao.IKindDao.Kind" />
+        <!-- 一对一，商品的小种类-->
+        <association property="smallKind" resultMap="com.happybuy.dao.ISmallKindDao.SmallKind" />
+        <!--一对多，商品的评论-->
+        <collection property="commentList" resultMap="com.happybuy.dao.ICommentDao.Comment" />
+    </resultMap>
+
+    <!--插入一条商品记录-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.Commodity" >
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual
+        </selectKey>
+        INSERT INTO
+        commodity(
+            comm_id, co_name, co_description, stock, originalPrice, currentPrice,
+            picture1, picture2, picture3, picture4, desc_picture1, desc_picture2,
+            desc_picture3, desc_picture4, totalBuy, state, kind_id, sk_id
+        )
+        VALUES (
+            #{id}, #{name}, #{description}, #{stock}, #{originalPrice}, #{currentPrice},
+            #{picture1}, #{picture2}, #{picture3}, #{picture4}, #{descPicture1}, #{descPicture2},
+            #{descPicture3}, #{descPicture4}, #{totalBuy}, #{state}, #{kind.id}, #{smallKind.id}
+        )
+    </insert>
+
+    <!--计算条件查询商品的总数-->
+    <select id="countCommodity" parameterType="com.happybuy.domain.Commodity" resultType="int">
+        SELECT count(*)
+        FROM commodity a LEFT JOIN kind b
+        on a.kind_id = b.kind_id
+        LEFT JOIN smallkind sk
+        on sk.sk_id = a.sk_id
+        <where>
+            <if test="name != null ">
+                AND a.co_name LIKE '%' #{name} '%'
+            </if>
+            <if test="description != null ">
+                OR a.co_description LIKE '%' #{description} '%'
+            </if>
+            <if test="kind.name != null ">
+                OR b.kind_name LIKE '%' #{kind.name} '%'
+            </if>
+            <if test="smallKind.name != null">
+                OR sk.sk_name LIKE '%' #{smallKind.name} '%'
+            </if>
+        </where>
+    </select>
+
+    <!--分页条件查询多个商品-->
+    <select id="queryCommodityByPage" parameterType="map" resultMap="Commodity">
+        SELECT
+            a.comm_id, a.co_name, a.co_description, a.totalBuy, a.stock, a.originalPrice, a.currentPrice,
+            a.picture1, a.picture2, a.picture3, a.picture4, a.state, a.kind_id, a.sk_id,
+            b.kind_name, sk.sk_name
+        FROM commodity a
+        LEFT JOIN kind b
+        on a.kind_id = b.kind_id
+        LEFT JOIN smallkind sk
+        on sk.sk_id = a.sk_id
+        <where>
+            <if test="commodity.name != null ">
+                AND a.co_name LIKE '%' #{commodity.name} '%'
+            </if>
+            <if test="commodity.description != null ">
+                OR a.co_description LIKE '%' #{commodity.description} '%'
+            </if>
+            <if test="commodity.kind.name != null ">
+                OR b.kind_name LIKE '%' #{commodity.kind.name} '%'
+            </if>
+            <if test="commodity.smallKind.name != null ">
+                OR sk.sk_name LIKE '%' #{commodity.smallKind.name} '%'
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="sort == null ">
+                a.kind_id
+            </when>
+            <when test="sort.equals(&quot;price_asc&quot;)">
+                a.currentPrice ASC
+            </when>
+            <when test="sort.equals(&quot;price_desc&quot;)">
+                a.currentPrice DESC
+            </when>
+            <when test="sort.equals(&quot;stock_asc&quot;)">
+                a.stock ASC
+            </when>
+            <when test="sort.equals(&quot;stock_desc&quot;)">
+                a.stock DESC
+            </when>
+            <when test="sort.equals(&quot;totalBuy_asc&quot;)">
+                a.totalBuy ASC
+            </when>
+            <when test="sort.equals(&quot;totalBuy_desc&quot;)">
+                a.totalBuy DESC
+            </when>
+            <otherwise>
+                a.kind_id
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <!--查询一条商品信息-->
+    <select id="queryOne" parameterType="String" resultMap="Commodity">
+        SELECT
+        a.comm_id, a.co_name, a.co_description, a.stock, a.originalPrice, a.currentPrice,
+        a.picture1, a.picture2, a.picture3, a.picture4, a.totalBuy, a.state, a.kind_id, a.sk_id,
+        b.kind_name, sk.sk_name
+        FROM commodity a
+        LEFT JOIN kind b
+        on a.kind_id = b.kind_id
+        LEFT JOIN smallkind sk
+        on sk.sk_id = a.sk_id
+        <where>
+            AND a.comm_id = #{_parameter}
+        </where>
+    </select>
+
+    <!--查询商品详情和其的商品评论-->
+    <select id="queryOneDetails" parameterType="String" resultMap="Commodity">
+        SELECT a.comm_id, a.co_name, a.co_description, a.stock, a.originalPrice, a.currentPrice,
+        a.picture1, a.picture2, a.picture3, a.picture4, a.totalBuy, a.state, a.desc_picture1,
+        a.desc_picture2, a.desc_picture3, a.desc_picture4, b.comment_id, b.comment_createTime,
+        b.comment_score, b.comment_like, b.comment_picture1, b.comment_picture1, b.comment_picture2,
+        b.comment_picture3, b.comment_picture4, b.content, c.user_id, c.username, d.kind_name, sk.sk_name
+        FROM commodity a
+        LEFT JOIN comment b
+        ON a.comm_id = b.comm_id
+        LEFT JOIN user c
+        ON b.user_id = c.user_id
+        LEFT JOIN kind d
+        on a.kind_id = d.kind_id
+        LEFT JOIN smallkind sk
+        on sk.sk_id = a.sk_id
+        <where>
+            a.comm_id = #{_parameter}
+        </where>
+        ORDER BY b.comment_createTime DESC
+    </select>
+
+    <!--删除一个商品-->
+    <delete id="deleteOne" parameterType="String">
+        DELETE FROM commodity WHERE comm_id = #{_parameter}
+    </delete>
+
+    <!--更新商品-->
+    <update id="updateOne" parameterType="com.happybuy.domain.Commodity">
+        UPDATE commodity a
+        SET
+          a.co_name = #{name}, a.co_description = #{description}, a.stock = #{stock}, a.originalPrice = #{originalPrice},
+          a.currentPrice = #{currentPrice},a.picture1 = #{picture1}, a.picture2 = #{picture2}, a.picture3 = #{picture3},
+          a.picture4 = #{picture4}, desc_picture1 = #{descPicture1}, desc_picture2 = #{descPicture2},desc_picture3 = #{descPicture3},
+          desc_picture4 = #{descPicture4},a.kind_id = #{kind.id}, a.sk_id = #{smallKind.id}
+        WHERE a.comm_id = #{id}
+    </update>
+
+    <!--改变商品的状态-->
+    <update id="updateState" parameterType="com.happybuy.domain.Commodity">
+        UPDATE commodity a
+        SET a.state = #{state}
+        WHERE a.comm_id = #{id}
+    </update>
+
+    <!--查询某个商品的销量和库存-->
+    <select id="queryTotalBuy" parameterType="String" resultMap="Commodity">
+        SELECT totalBuy, stock, comm_id
+        FROM commodity
+        WHERE comm_id = #{id}
+    </select>
+
+    <!--更新某个商品的销量和库存-->
+    <update id="updateTotalBuy" parameterType="com.happybuy.domain.Commodity">
+        UPDATE commodity
+        SET totalBuy = #{totalBuy}, stock = #{stock}
+        WHERE comm_id = #{id}
+    </update>
+</mapper>

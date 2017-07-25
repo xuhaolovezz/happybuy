@@ -1,0 +1,395 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+}
+a:hover{
+	text-decoration: none;
+	color: black;
+}
+p{
+	margin: 15px auto !important;
+}
+li{
+	list-style: none;
+}
+.header a{
+	text-decoration: none;
+	font-size: 13px;
+	color: #666;
+	font-family: "微软雅黑";
+}
+.header{
+	width: 100%;
+	background-color: white;
+}
+.header-top{
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #f2f2f2;
+	height: 29px;
+	line-height: 29px;
+	position: relative;
+}
+.header-top-l{
+	display: inline-block;
+	float: left;
+	margin-left: 100px;
+}
+.header-top-r{
+	display: inline-block;
+	float: right;
+	margin-right: 100px;
+}
+.header-middle{
+	margin: 10px auto;
+	width: 1200px;
+
+}
+.header-middle-logo{
+	display: inline-block;
+	float: left;
+	margin-left: 100px;
+}
+.header-middle-se{
+	/*display: inline-block;*/
+	float: right;
+	margin-right: 50px;
+	margin-top: 20px;
+}
+.search{
+	width: 350px;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+}
+.header-middle-ca{
+	float: right;
+	margin: 20px 30px;
+	margin-right: 100px;
+}
+.header-middle-ca a{
+	color: #ffffff;
+}
+.btn-search{
+	margin-left: -5px;
+	/*height: 35px;!important;*/
+}
+#cart{
+	height: 31px;
+	width: 100px;
+}
+.header-middle-hot{
+	display: inline-block;
+	margin-left: 330px;
+}
+.header-foot{
+	position: relative;
+	background-color: #FF0036;
+}
+.header-foot a{
+	font-size: 16px;
+	color: #F2F2F2;
+	font-family: "微软雅黑";
+}
+.header-foot-r{
+	width:1080px;
+	margin:0px auto;
+	height: 46px;
+	line-height: 46px;
+}
+.header-foot-r1{
+	margin-right: 70px;
+}
+.header-foot-r1:hover{
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.a-selected{
+	color: #FF0036 !important;
+}
+/*中部CSS样式*/
+.container a{
+	text-decoration: none;
+	color: #000000;
+	font-family: "微软雅黑";
+}
+.container{
+	width: 1280px;
+	margin: 0 auto;
+	font-family: "微软雅黑";
+
+}
+.c-left{
+	margin-top: 50px;
+	/*margin-left: 50px;*/
+	width: 150px;
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #dadada;
+	display: inline-block;
+	float: left;
+	background-color: white;
+}
+.c-left a:hover{
+	color: #ff2a2f;
+	text-decoration: none;
+}
+.title{
+	border: 1px solid #dadada;
+	background-color: #e8e8e8;
+	line-height: 30px;
+	height: 30px;
+	font-weight: bold;
+}
+.c-right{
+	display: inline-block;
+	float: left;
+	margin-left: 30px;
+	margin-top: 50px;
+	width: 900px;
+}
+.message-title{
+	border: 1px solid #C4C4C4;
+	background-color: white;
+}
+.breadcrumb{
+	font-size: 18px;
+	margin-bottom: 0px !important;
+}
+.breadcrumb ul{
+	margin-bottom: 0px;
+}
+.message-text{
+	margin-top: 20px;
+	border: 1px solid #E6E6E6;
+	height: 380px;
+	line-height: 45px;
+	background-color: white;
+}
+.p1{
+	text-align: center;
+	margin-top: 30px;
+}
+.btn-next{
+	border: none;
+	border-radius: 3px;
+	width: 200px;
+	color: #FFFFFF;
+	background-color: #ff342e;
+}
+.btn-next:hover{
+	background-color: #ee322c;
+}
+.p2{
+	text-align: center;
+	margin-top: 30px;
+	line-height: 70px;
+}
+.p3{
+	width: 35%;
+	margin: 20px auto
+}
+.o1{
+	background-color: #FF0036!important;
+	color: white!important;
+}
+.order-title{
+	margin: 15px 0px;
+}
+table{
+	border-color: grey;
+	display: table;
+	border-collapse: separate;
+	border-spacing: 2px;
+}
+.tit th{
+	background-color: #e1dfdf;
+	color: #333;
+	border-right: 1px solid #F2F2F0;
+	height: 40px;
+	font-size: 14px;
+	font-weight: normal;
+}
+.a-width a{
+	width: 55px;
+	font-size: 14px;
+}
+.inline{
+	display: inline-block;
+	float: left;
+	text-align: center;
+}
+.list-state{
+	width: 115px;
+}
+.list-ops{
+	width: 105px;
+}
+.goods-img{
+	border: 1px solid #C4C4C4;
+}
+.goods-text{
+	margin-left: 10px;
+	width: 150px;
+}
+.text-list{
+	height: 100px;
+	border: 1px solid #FF0036;
+	padding-top: 10px;
+}
+.p-page{
+	width: 550px;
+	margin: 0 auto;
+}
+
+/*底部CSS样式 */
+.footer a{
+	text-decoration: none;
+	color: #000000;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+.footer{
+	width: 1080px;
+	margin:0px auto;
+	margin-top: 30px;
+	line-height: 25px;
+	text-align: center;
+	font-size: 12px;
+	background-color: white;
+}
+.footer-w{
+	color: #515151;
+}
+.block{
+	height: 1150px;
+}
+.footer-service{
+	height: 100px;
+
+}
+.service{
+	height: 80px;
+	width: 250px;
+	display: block;
+	float: left;
+}
+.service1{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+}
+.service2{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+	background-position: 0 -43px;
+}
+.service3{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+	background-position: 0 -86px;
+}
+.service4{
+	background-image: url(/happybuy/resources/css/img/ico_service.png);
+	height: 42px;
+	width: 36px;
+	overflow: hidden;
+	display: block;
+	float: left;
+	background-position: 0 -129px;
+}
+.service-t{
+	font-weight:bold;
+	color: #444;
+	line-height: 42px;
+	font-size: 18px;
+	float: left;
+	display: block;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+.footer-help{
+	height: 170px;
+}
+.footer-help a{
+	font-size: 12px;
+	font-family: "微软雅黑";
+}
+.strong{
+	font-weight: bold;
+	font-family: "微软雅黑";
+	font-size: 16px;
+	margin: 5px;
+}
+ul li{
+	list-style: none;
+}
+.help{
+	display: inline-block;
+	float: left;
+	margin-right: 70px;
+}
+.table-order-detail{
+	font-size: 16px;
+	line-height: 40px;
+	font-weight: 500;
+	width: 100%;
+	/*width: 500px;*/
+}
+.p-order-title{
+	margin-bottom: 30px;
+}
+.order-detail{
+	padding-left: 25px;
+}
+.btn-deliver-goods{
+	margin-left: 12px;
+}
+.p-order-price{
+	float: right;
+	margin-right: 20px;
+}
+.a-pay-now{
+	border: 1px solid #FF0036;
+	padding: 3px 5px;
+	color: #FF0036!important;
+	margin-right: 5px;
+}
+.a-pay-now:hover{
+	background-color: #f20034;
+	color: #fcfcfc !important;
+	text-decoration: none;
+}
+.order-total-detail{
+	width: 200px;
+	line-height: 30px;
+}
+.tr-total-price{
+	font-size: 16px;
+	color: #ff191c;
+	font-weight: bold;
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IShopCartCommodityDao">
+    <!--实体类ShopCartCommodity对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.ShopCartCommodity" id="ShopCartCommodity">
+        <id property="id" column="scc_id" jdbcType="VARCHAR" />
+        <result property="commodityNumber" column="comm_number" jdbcType="INTEGER" />
+        <!--订单中的商品集合-->
+        <association property="commodity" column="comm_id" resultMap="com.happybuy.dao.ICommodityDao.Commodity" />
+    </resultMap>
+
+    <!--查询购物车中的一条商品-->
+    <select id="queryOne" parameterType="map" resultMap="ShopCartCommodity">
+        SELECT a.comm_id, a.sc_id, a.scc_id, a.comm_number, b.stock, b.comm_id
+        FROM shopcart_commodity a
+        LEFT JOIN commodity b
+        on a.comm_id = b.comm_id
+        WHERE a.sc_id = #{shopCartId} AND a.comm_id = #{commodityId}
+    </select>
+
+    <!--查询购物车中的多条商品-->
+    <select id="queryBatch" parameterType="map" resultMap="ShopCartCommodity">
+        SELECT a.comm_id, a.sc_id, a.scc_id, a.comm_number, b.stock, b.comm_id ,
+        b.co_description, b.picture1, b.originalPrice, b.currentPrice
+        FROM shopcart_commodity a
+        LEFT JOIN commodity b
+        on a.comm_id = b.comm_id
+        WHERE a.sc_id = #{shopCartId} AND a.comm_id in ( ${commodityIds} )
+    </select>
+
+    <!--更新购物车中的一条商品的数量-->
+    <update id="updateCommodityNumber" parameterType="map">
+        UPDATE shopcart_commodity
+        SET comm_number = #{commodityNumber}
+        WHERE sc_id = #{shopCartId} AND comm_id = #{commodityId}
+    </update>
+
+    <!--添加商品到购物车中-->
+    <insert id="insertOne" parameterType="map">
+        INSERT INTO
+        shopcart_commodity(comm_id, sc_id, comm_number, scc_id)
+        VALUES (#{shopCartCommodity.commodity.id}, #{shopCartId}, #{shopCartCommodity.commodityNumber}, #{shopCartCommodity.id})
+    </insert>
+
+    <!--从购物车中删除商品-->
+    <delete id="deleteOne" parameterType="map">
+        DELETE FROM shopcart_commodity
+        WHERE sc_id = #{shopCartId} AND comm_id = #{commodityId}
+    </delete>
+
+    <!--从购物车中删除多个商品-->
+    <delete id="deleteBatch" parameterType="map">
+        DELETE FROM shopcart_commodity
+        WHERE sc_id = #{shopCartId} AND comm_id in ( ${commodityIds} )
+    </delete>
+
+</mapper>

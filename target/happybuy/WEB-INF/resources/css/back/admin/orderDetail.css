@@ -1,0 +1,16 @@
+
+.table-order-detail{
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 500;
+    /*width: 500px;*/
+}
+.order-title{
+    /*margin-right: 30px;*/
+}
+.order-detail{
+    padding-left: 40px;
+}
+.btn-deliver-goods{
+    margin-left: 12px;
+}

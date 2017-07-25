@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IControllerLogDao">
+    <!--实体类LoginLog对应的字段赋值-->
+    <resultMap type="com.happybuy.entity.ControllerLog" id="ControllerLog">
+        <id property="id" column="id" jdbcType="VARCHAR" />
+        <result property="username" column="username" jdbcType="VARCHAR" />
+        <result property="methodName" column="methodName" jdbcType="VARCHAR" />
+        <result property="description" column="description" jdbcType="VARCHAR" />
+        <result property="accountType" column="accountType" jdbcType="VARCHAR" />
+        <result property="requestIP" column="requestIP" jdbcType="VARCHAR" />
+        <result property="realAddress" column="realAddress" jdbcType="VARCHAR" />
+        <result property="requestTime" column="requestTime" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--插入一条日志记录-->
+    <insert id="insertOne" parameterType="com.happybuy.entity.ControllerLog">
+        INSERT INTO controllerLog (id, username, methodName, description, accountType, requestIP, realAddress, requestTime)
+        VALUES (#{id}, #{username}, #{methodName},#{description}, #{accountType}, #{requestIP}, #{realAddress}, #{requestTime})
+    </insert>
+
+    <!--查询日志总数-->
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM controllerLog
+    </select>
+
+    <!--分页查询日志-->
+    <select id="queryLogByPage" parameterType="map" resultMap="ControllerLog">
+        SELECT id, username, methodName, description, accountType, requestIP, realAddress, requestTime
+        FROM controllerLog
+        ORDER BY requestTime DESC
+    </select>
+
+    <!--批量删除ControllerLogs-->
+    <delete id="deleteLogs" parameterType="String">
+        DELETE FROM controllerLog
+        WHERE id IN ( ${_parameter} )
+    </delete>
+
+</mapper>

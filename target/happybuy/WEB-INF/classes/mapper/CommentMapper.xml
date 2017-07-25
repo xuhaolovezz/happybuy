@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.ICommentDao">
+    <!--实体类Comment对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Comment" id="Comment">
+        <id property="id" column="comment_id" jdbcType="VARCHAR" />
+        <result property="createTime" column="comment_createTime" jdbcType="VARCHAR" />
+        <result property="content" column="content" jdbcType="VARCHAR" />
+        <result property="score" column="comment_score" jdbcType="INTEGER" />
+        <result property="like" column="comment_like" jdbcType="INTEGER" />
+        <result property="picture1" column="comment_picture1" jdbcType="VARCHAR" />
+        <result property="picture2" column="comment_picture2" jdbcType="VARCHAR" />
+        <result property="picture3" column="comment_picture3" jdbcType="VARCHAR" />
+        <result property="picture4" column="comment_picture4" jdbcType="VARCHAR" />
+        <association property="user" javaType="com.happybuy.domain.User">
+            <id property="id" column="user_id" jdbcType="VARCHAR" />
+            <result property="username" column="username" jdbcType="VARCHAR" />
+        </association>
+        <association property="commodity" javaType="com.happybuy.domain.Commodity">
+            <id property="id" column="comm_id" jdbcType="VARCHAR" />
+        </association>
+        <association property="order" javaType="com.happybuy.domain.Order">
+            <id property="id" column="order_id" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <!--插入一条或者多条记录-->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO
+        comment(comment_id, comment_createTime, content, comment_score, comment_like, comment_picture1,
+                comment_picture2, comment_picture3, comment_picture4, user_id, comm_id, order_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.id}, #{item.createTime}, #{item.content},#{item.score}, #{item.like}, #{item.picture1},
+            #{item.picture2}, #{item.picture3}, #{item.picture4}, #{item.user.id}, #{item.commodity.id}, #{item.order.id})
+        </foreach>
+    </insert>
+
+
+</mapper>

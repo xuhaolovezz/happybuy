@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IOrderDetailDao">
+    <!--实体类OrderDetail对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.OrderDetail" id="OrderDetail">
+        <id property="id" column="odetail_id" jdbcType="VARCHAR" />
+        <result property="createTime" column="order_createTime" jdbcType="VARCHAR" />
+        <result property="name" column="order_name" jdbcType="VARCHAR" />
+        <result property="address" column="order_address" jdbcType="VARCHAR" />
+        <result property="phone" column="order_phone" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--插入一条记录-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.OrderDetail">
+        INSERT INTO
+        orderdetail (odetail_id, order_createTime, order_name, order_address, order_phone)
+        VALUES (#{id}, #{createTime}, #{name}, #{address}, #{phone})
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IAdminDao">
+    <!--实体类Admin对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Admin" id="Admin">
+        <id property="id" column="admin_id" jdbcType="VARCHAR" />
+        <result property="username" column="username" jdbcType="VARCHAR" />
+        <result property="password" column="password" jdbcType="VARCHAR" />
+        <result property="email" column="email" jdbcType="VARCHAR" />
+        <result property="salt" column="salt" jdbcType="VARCHAR" />
+        <result property="code" column="code" jdbcType="VARCHAR" />
+        <result property="codeTime" column="codeTime" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--<insert id="insertOne" parameterType="com.happybuy.domain.User" >
+       &lt;!&ndash; <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual
+        </selectKey>&ndash;&gt;
+        INSERT INTO
+        user (user_id,username,u_password,email,ustate,regCode,salt)
+        VALUES( #{id} , #{username}, #{password}, #{email}, #{state}, #{regCode}, #{salt} )
+    </insert>-->
+
+    <!--查询一条管理员-->
+    <select id="selectOne" parameterType="com.happybuy.domain.Admin" resultMap="Admin">
+        SELECT admin_id,username,password,email,salt,code,codeTime
+        FROM admin a
+        <where>
+            <if test="id != null">
+                a.admin_id = #{id}
+            </if>
+        </where>
+        <where>
+            <if test="username!=null ">
+                AND a.username = #{username}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

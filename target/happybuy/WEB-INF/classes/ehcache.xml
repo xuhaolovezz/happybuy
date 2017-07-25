@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+    <diskStore path="D:/WebProject/ehcache"></diskStore>
+    <!--
+        maxElementsInMemory：缓存最大数目
+        eternal：缓存是否持久
+        overflowToDisk：是否保存到磁盘，当系统当机时
+        timeToIdleSeconds：当缓存闲置n秒后销毁
+        timeToLiveSeconds：当缓存存活n秒后销毁
+    -->
+    <defaultCache maxElementsInMemory="1000"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="180"
+        diskPersistent="false"
+        diskExpiryThreadIntervalSeconds= "120"
+                  memoryStoreEvictionPolicy="LRU"
+
+    />
+    <cache name="testCache"
+           maxElementsInMemory="100"
+           eternal="false"
+           overflowToDisk="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="180"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds= "120"
+           memoryStoreEvictionPolicy="LRU"/>
+</ehcache>

@@ -1,0 +1,179 @@
+
+
+
+/*中部CSS样式*/
+.container a{
+	text-decoration: none;
+	color: #000000;
+	font-family: "微软雅黑";
+}
+.container{
+	width: 1000px;
+	height: 800px;
+	margin: 0 auto;
+	font-family: "微软雅黑";
+	
+}
+.c-left{
+	margin-top: 50px;
+	margin-left: 50px;
+	width: 150px;
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #dadada;
+	float: left;
+	background-color: white;
+}
+.title{
+	border: 1px solid #dadada;
+	background-color: #e8e8e8;
+	line-height: 30px;
+	height: 30px;
+	font-weight: bold;
+}
+.focus{
+	color: #FF0036 !important;
+}
+
+.c-right{
+	float: left;
+	margin-left: 50px;
+	margin-top: 50px;
+	width: 650px;
+	font-size: 14px;
+	display: none;
+}
+.help-title{
+	border: 1px solid #C4C4C4;
+	background-color: white;
+	border-bottom: 1px solid #FF4A49;
+	height: 40px;
+	line-height: 40px;
+}
+.help-title a{
+	color: #666666;
+	margin-left: 15px;
+}
+.em{
+	text-indent: 2em;
+}
+.text-title{
+	text-align: center;
+	font-size: 18px !important;
+	font-weight: bold;
+}
+
+
+
+/*安全防诈骗样式*/
+.help1-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	background-color: white;
+}
+.hint{
+	width: 550px;
+	margin: 0px auto;
+}
+.hint p{
+	margin: 0;
+}
+
+/*正品保障样式*/
+.help2-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	height: 700px;
+	background-color: white;
+}
+.help2-text img{
+	margin-top: 20px;
+	margin-left: 15px;
+}
+
+/*支付相关样式*/
+.help3-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	background-color: white;
+}
+.hint3 p{
+	width: 550px;
+	margin: 0px auto;
+	color: #666666;
+}
+
+/*快递及配送区域样式*/
+.help4-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	height: 400px;
+	background-color: white;
+	line-height: 30px;
+}
+.hint4 p{
+	width: 550px;
+	margin: 0px auto;
+	color: #666666;
+}
+
+/*发货时间样式*/
+.help5-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	height: 400px;
+	background-color: white;
+	line-height: 30px;
+}
+.hint5 p{
+	width: 550px;
+	margin: 0px auto;
+	color: #666666;
+}
+
+/*商品验货与签收样式*/
+.help6-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	height: 400px;
+	background-color: white;
+	line-height: 30px;
+}
+.hint6 p{
+	width: 550px;
+	margin: 0px auto;
+	color: #666666;
+}
+
+/*退换货政策样式*/
+.help7-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	background-color: white;
+	line-height:20px;
+}
+.hint7 p{
+	width: 550px;
+	margin: 0px auto;
+	color: #666666;
+	font-size: 12px;
+}
+
+/*服务条款样式*/
+.help8-text{
+	border: 1px solid #ddd;
+	border-top: none;
+	background-color: white;
+	line-height:20px;
+}
+.hint8 p{
+	width: 550px;
+	margin: 0px auto;
+	color: #666666;
+	font-size: 12px;
+}
+
+
+
+/*底部CSS样式 */
+

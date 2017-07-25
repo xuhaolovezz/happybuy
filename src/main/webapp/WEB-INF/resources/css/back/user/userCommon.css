@@ -1,0 +1,17 @@
+.header-nav{
+    width: 1120px;
+    margin: 0 auto;
+}
+.header-top-left{
+    float: left;
+}
+.header-top-right{
+    float: right;
+}
+.header-top-right a{
+    margin: 0 10px;
+}
+.header-top-right a:hover{
+    color: #ee1908;
+    text-decoration: none;
+}

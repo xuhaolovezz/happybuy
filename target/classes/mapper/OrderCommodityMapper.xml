@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IOrderCommodityDao">
+    <!--实体类OrderCommodity对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.OrderCommodity" id="OrderCommodity">
+        <id property="id" column="oc_id" jdbcType="VARCHAR" />
+        <result property="commodityId" column="comm_id" jdbcType="VARCHAR" />
+        <result property="commodityNumber" column="comm_number" jdbcType="INTEGER" />
+        <result property="totalPrice" column="totalPrice" jdbcType="DECIMAL" />
+        <result property="totalOriginalPrice" column="totalOriginalPrice" jdbcType="DECIMAL" />
+        <result property="originalPrice" column="originalPrice" jdbcType="DECIMAL" />
+        <result property="currentPrice" column="currentPrice" jdbcType="DECIMAL" />
+        <result property="description" column="description" jdbcType="VARCHAR" />
+        <result property="commPicture" column="commPicture" jdbcType="VARCHAR" />
+        <!--所属订单-->
+        <association property="order" javaType="com.happybuy.domain.Order">
+            <id property="id" column="order_id" />
+        </association>
+    </resultMap>
+
+    <!--插入多条订单商品记录-->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO
+        orders_commodity(order_id, oc_id, comm_id, comm_number, totalPrice, totalOriginalPrice, originalPrice, currentPrice,
+                        description, commPicture )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.order.id}, #{item.id}, #{item.commodityId}, #{item.commodityNumber}, #{item.totalPrice}, #{item.totalOriginalPrice},
+              #{item.originalPrice}, #{item.currentPrice}, #{item.description}, #{item.commPicture})
+        </foreach>
+    </insert>
+
+    <!--根据订单id查询订单商品记录-->
+    <select id="queryBatchByOrder" parameterType="String" resultMap="OrderCommodity">
+        SELECT order_id, comm_id, comm_number
+        FROM orders_commodity
+        WHERE order_id = #{_parameter}
+    </select>
+
+    <!--根据订单id查询订单商品详细记录-->
+    <select id="queryDetailsByOrder" parameterType="String" resultMap="OrderCommodity">
+        SELECT d.comm_id, d.comm_number, d.oc_id, d.totalPrice,d.totalOriginalPrice, d.originalPrice, d.currentPrice, d.description, d.commPicture
+        FROM orders_commodity d
+        WHERE d.order_id = #{_parameter}
+    </select>
+
+</mapper>

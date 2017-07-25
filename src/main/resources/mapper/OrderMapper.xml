@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IOrderDao">
+    <!--实体类Order对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Order" id="Order">
+        <id property="id" column="order_id" jdbcType="VARCHAR" />
+        <result property="tradeNo" column="tradeNo" jdbcType="VARCHAR" />
+        <result property="state" column="order_state" jdbcType="VARCHAR" />
+        <result property="totalAmount" column="totalAmount" jdbcType="DECIMAL" />
+        <result property="totalOriginalAmount" column="totalOriginalAmount" jdbcType="DECIMAL" />
+
+        <!--订单所属的用户-->
+        <association property="user" column="user_id" resultMap="com.happybuy.dao.IUserDao.User" />
+        <!--订单详情-->
+        <association property="orderDetail" column="odetail_id" resultMap="com.happybuy.dao.IOrderDetailDao.OrderDetail" />
+        <!--订单的所有商品-->
+        <collection property="orderCommodityList" resultMap="com.happybuy.dao.IOrderCommodityDao.OrderCommodity" />
+
+    </resultMap>
+
+    <!--根据用户或者订单状态分页查询订单-->
+    <select id="queryOrderByPage" parameterType="map" resultMap="Order">
+        SELECT a.order_id, a.user_id, b.username, a.order_state, a.totalAmount,totalOriginalAmount, c.odetail_id, c.order_phone, c.order_address, c.order_createTime,
+        c.order_name
+        FROM orders a
+        LEFT JOIN user b
+        on a.user_id = b.user_id
+        LEFT JOIN orderdetail c
+        on a.odetail_id = c.odetail_id
+        <where>
+            <if test="order.user != null">
+                <if test="order.user.id != null">
+                    a.user_id = #{order.user.id}
+                </if>
+            </if>
+            <if test="order.id != null and !(order.id.trim.equals(&quot;&quot;))">
+                AND a.order_id like '%' #{order.id} '%'
+            </if>
+            <if test="order.state != null and !(order.state.trim.equals(&quot;&quot;))">
+                AND a.order_state = #{order.state}
+            </if>
+        </where>
+        ORDER BY a.order_id DESC
+    </select>
+
+
+    <select id="countState" parameterType="String" resultMap="Order">
+        SELECT a.order_id, a.order_state
+        FROM orders a
+        LEFT JOIN user b
+        on a.user_id = b.user_id
+        WHERE a.user_id = #{_parameter}
+    </select>
+
+    <!--根据用户或者订单状态分页查询订单-->
+    <select id="countAll" parameterType="com.happybuy.domain.Order" resultType="int">
+        SELECT COUNT(*)
+        FROM orders a
+        <where>
+            <if test="user != null">
+                <if test="user.id != null ">
+                    a.user_id = #{user.id}
+                </if>
+            </if>
+            <if test="id != null and !(id.trim.equals(&quot;&quot;))">
+                AND a.order_id like '%' #{id} '%'
+            </if>
+            <if test="state != null and !(state.trim.equals(&quot;&quot;))">
+                AND a.order_state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <!--根据订单ID查询订单详情-->
+    <select id="queryOrderById" parameterType="String" resultMap="Order">
+        SELECT a.order_id, a.user_id, b.username, a.order_state, a.totalAmount,a.totalOriginalAmount, c.odetail_id, c.order_phone, c.order_address, c.order_createTime,
+        c.order_name, d.comm_id, d.comm_number, d.totalPrice,d.totalOriginalPrice, d.originalPrice, d.currentPrice, d.description, d.commPicture
+        FROM orders a
+        LEFT JOIN user b
+        on a.user_id = b.user_id
+        LEFT JOIN orderdetail c
+        on a.odetail_id = c.odetail_id
+        LEFT JOIN orders_commodity d
+        on a.order_id = d.order_id
+        WHERE a.order_id = #{_parameter}
+        ORDER BY d.totalPrice
+    </select>
+
+    <!--查询一条订单状态-->
+    <select id="queryState" parameterType="String" resultMap="Order">
+        SELECT order_id, order_state
+        FROM orders
+        WHERE order_id = #{_parameter}
+    </select>
+
+    <!--更新某个订单的状态-->
+    <update id="updateStateByOrderId" parameterType="com.happybuy.domain.Order">
+        UPDATE orders
+        SET order_state = #{state}
+        WHERE order_id = #{id}
+    </update>
+
+    <!--添加一条订单-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.Order">
+        INSERT INTO
+        orders(order_id, user_id, order_state, totalAmount, odetail_id, totalOriginalAmount)
+        VALUES ( #{id}, #{user.id}, #{state}, #{totalAmount}, #{orderDetail.id}, #{totalOriginalAmount})
+    </insert>
+
+    <!--订单支付成功后更新支付宝交易号-->
+    <update id="orderPaySuccess" parameterType="com.happybuy.domain.Order">
+        UPDATE orders
+        SET tradeNo = #{tradeNo}
+        WHERE order_id = #{id}
+    </update>
+
+    <!--根据订单id查询订单的总金额和名称-->
+    <select id="queryTotalAmount" parameterType="String" resultMap="Order">
+        SELECT a.order_id, a.totalAmount, b.comm_id, b.description
+        FROM orders a
+        LEFT JOIN orders_commodity b
+        on a.order_id = b.order_id
+        WHERE a.order_id = #{_parameter}
+    </select>
+</mapper>

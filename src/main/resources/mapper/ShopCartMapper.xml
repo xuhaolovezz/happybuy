@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IShopCartDao">
+    <!--实体类ShopCart对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.ShopCart" id="ShopCart">
+        <id property="id" column="sc_id" jdbcType="VARCHAR" />
+        <!--一对一，一个购物车对应一个用户-->
+        <association property="user"  resultMap="com.happybuy.dao.IUserDao.User" />
+        <!-- 一对多，一个购物车可以有多个商品-->
+        <collection property="shopCartCommodityList" resultMap="com.happybuy.dao.IShopCartCommodityDao.ShopCartCommodity" />
+
+    </resultMap>
+
+    <!--根据用户ID或者购物车ID和商品ID查询购物车-->
+    <select id="queryOneByUser" parameterType="map" resultMap="ShopCart">
+        SELECT a.sc_id, b.user_id, c.comm_id,c.sc_id, c.scc_id, c.comm_number, d.co_name, d.co_description, d.picture1, d.stock, d.originalPrice, d.currentPrice
+        FROM shopcart a
+        LEFT JOIN user b
+        on a.user_id = b.user_id
+        LEFT JOIN shopcart_commodity c
+        ON a.sc_id = c.sc_id
+        LEFT JOIN commodity d
+        on c.comm_id = d.comm_id
+        <where>
+            <if test="userId != null">
+                a.user_id = #{userId}
+            </if>
+            <if test="shopCartId != null">
+                AND a.sc_id = #{shopCartId}
+            </if>
+            <if test="commodityIds != null">
+                AND c.comm_id in ( ${commodityIds} )
+            </if>
+        </where>
+    </select>
+
+    <!--查询一条购物车ID-->
+    <select id="queryOne" parameterType="String" resultMap="ShopCart">
+        SELECT sc_id, user_id
+        FROM shopcart
+        WHERE user_id = #{_parameter}
+    </select>
+
+    <!--给用户添加一个购物车-->
+    <insert id="insertOne" parameterType="map">
+        INSERT INTO
+        shopcart (sc_id, user_id)
+        VALUES ( #{shopCartId}, #{userId} )
+    </insert>
+
+</mapper>

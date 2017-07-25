@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IKindDao">
+    <!--实体类Kind对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Kind" id="Kind">
+        <id property="id" column="kind_id" jdbcType="VARCHAR" />
+        <result property="name" column="kind_name" jdbcType="VARCHAR" />
+        <!--一对多，对SmallKind的持有-->
+        <collection property="smallKindList" resultMap="com.happybuy.dao.ISmallKindDao.SmallKind">
+        </collection>
+    </resultMap>
+
+    <!--查询所有商品品类-->
+    <select id="queryAll"  resultMap="Kind">
+        SELECT a.kind_id,a.kind_name,b.sk_id,b.sk_name
+        FROM  kind a
+        LEFT JOIN smallkind b
+        on a.kind_id = b.kind_id
+    </select>
+
+    <!--查询商品品类的数量-->
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*)
+        FROM kind
+    </select>
+
+    <!--分页查询商品品类-->
+    <select id="queryKindByPage" parameterType="map" resultMap="Kind">
+        SELECT a.kind_id,a.kind_name
+        FROM kind a
+    </select>
+
+    <!--更新商品品类的名称-->
+    <update id="updateName" parameterType="com.happybuy.domain.Kind">
+        UPDATE kind a
+        SET a.kind_name = #{name}
+        WHERE a.kind_id = #{id}
+    </update>
+
+    <!--添加商品品类-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.Kind">
+        INSERT INTO
+        kind(kind_id, kind_name)
+        VALUES (#{id}, #{name})
+    </insert>
+
+    <!--删除商品品类-->
+    <delete id="deleteOne" parameterType="String">
+        DELETE FROM kind
+        WHERE kind_id = #{_parameter}
+    </delete>
+
+    <!--查询一条商品品类信息-->
+    <select id="selectOne" parameterType="String" resultMap="Kind">
+        SELECT a.kind_id,a.kind_name,b.sk_id,b.sk_name
+        FROM  kind a
+        LEFT JOIN smallkind b
+        on a.kind_id = b.kind_id
+        WHERE a.kind_id = #{_parameter}
+    </select>
+
+</mapper>

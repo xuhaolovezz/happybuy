@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.IProvinceDao">
+    <!--实体类Province对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.Province" id="Province">
+        <id property="id" column="pro_id" jdbcType="VARCHAR" />
+        <result property="name" column="pro_name" jdbcType="VARCHAR" />
+        <!-- 一对多，一个省份对应多个城市-->
+        <collection property="cityList" resultMap="com.happybuy.dao.ICityDao.City" />
+    </resultMap>
+
+    <!--查询所有省份及其城市-->
+    <select id="queryAll" resultMap="Province">
+        SELECT a.pro_id, a.pro_name, b.city_id, b.city_name
+        FROM province a LEFT JOIN city b
+        on a.pro_id = b.pro_id
+    </select>
+
+</mapper>

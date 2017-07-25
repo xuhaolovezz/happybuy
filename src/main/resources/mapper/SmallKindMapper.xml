@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.ISmallKindDao">
+    <!--实体类SmallKind对应的字段赋值-->
+    <resultMap type="com.happybuy.domain.SmallKind" id="SmallKind">
+        <id property="id" column="sk_id" jdbcType="VARCHAR" />
+        <result property="name" column="sk_name" jdbcType="VARCHAR" />
+        <!--<association property="kind" column="kind_id" resultMap="com.happybuy.dao.IKindDao.Kind" />-->
+    </resultMap>
+
+    <!--修改小品类名称-->
+    <update id="updateName" parameterType="com.happybuy.domain.SmallKind">
+        UPDATE smallkind a
+        SET a.sk_name = #{name}
+        WHERE a.sk_id = #{id}
+    </update>
+
+    <!--添加小品类-->
+    <insert id="insertOne" parameterType="com.happybuy.domain.SmallKind">
+        INSERT INTO
+        smallkind(sk_id, sk_name, kind_id)
+        VALUES (#{id}, #{name}, #{kind.id})
+    </insert>
+
+    <!--删除小品类-->
+    <delete id="deleteOne" parameterType="String">
+        DELETE FROM smallkind
+        WHERE sk_id = #{_parameter}
+    </delete>
+
+</mapper>

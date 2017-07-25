@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Maven: com.alibaba:alibaba-sdk-3.24:unknown">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/alibaba-sdk-3.24/unknown/alibaba-sdk-3.24-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/alibaba-sdk-3.24/unknown/alibaba-sdk-3.24-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

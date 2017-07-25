@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这地方填写接口对应的全名-->
+<mapper namespace="com.happybuy.dao.ILoginLogDao">
+    <!--实体类LoginLog对应的字段赋值-->
+    <resultMap type="com.happybuy.entity.LoginLog" id="LoginLog">
+        <id property="id" column="id" jdbcType="VARCHAR" />
+        <result property="username" column="username" jdbcType="VARCHAR" />
+        <result property="root" column="root" jdbcType="INTEGER" />
+        <result property="loginType" column="loginType" jdbcType="VARCHAR" />
+        <result property="requestIP" column="requestIP" jdbcType="VARCHAR" />
+        <result property="realAddress" column="realAddress" jdbcType="VARCHAR" />
+        <result property="lastLoginTime" column="lastLoginTime" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--插入一条日志记录-->
+    <insert id="insertOne" parameterType="com.happybuy.entity.LoginLog">
+        INSERT INTO loginLog (id, username, root, loginType, requestIP, realAddress, lastLoginTime)
+        VALUES (#{id}, #{username}, #{root}, #{loginType}, #{requestIP}, #{realAddress}, #{lastLoginTime})
+    </insert>
+
+    <!--查询日志总数-->
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+         FROM loginLog
+    </select>
+
+    <!--分页查询登录日志-->
+    <select id="queryLogByPage" parameterType="map" resultMap="LoginLog">
+        SELECT id, username, root, loginType, requestIP, realAddress, lastLoginTime
+        FROM loginLog
+        ORDER BY lastLoginTime DESC
+    </select>
+
+    <!--批量删除登录日志-->
+    <delete id="deleteLogs" parameterType="String">
+        DELETE FROM loginLog
+        WHERE id IN ( ${_parameter} )
+    </delete>
+</mapper>
